@@ -1,4 +1,4 @@
-# webget for python
+# webget for Python
 
 webget(wget) is a Python library for save as internet web page.
 
