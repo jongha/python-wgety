@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='wgety',
-      version='1.0',
+      version='1.1',
       description='wgety for Python',
       long_description='wgety for Python',
       license='MIT',
@@ -18,6 +18,7 @@ setup(name='wgety',
           'Operating System :: OS Independent',
           'Programming Language :: Python',
           'Programming Language :: Python :: 2',
+          'Programming Language :: Python :: 2.6',
           'Programming Language :: Python :: 2.7',
           'Programming Language :: Python :: 3',
           'Programming Language :: Python :: 3.2',
