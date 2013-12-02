@@ -2,15 +2,15 @@
 
 from distutils.core import setup
 
-setup(name='wget',
+setup(name='wgety',
       version='1.0',
-      description='wget for Python',
-      long_description='wget for Python',
+      description='wgety for Python',
+      long_description='wgety for Python',
       license='MIT',
       author='Jong-Ha Ahn',
       author_email='jongha.ahn@mrlatte.net',
-      url='https://github.com/jongha/python-wget',
-      packages=['wget'],
+      url='https://github.com/jongha/python-wgety',
+      packages=['wgety'],
       classifiers=[
           'Environment :: Web Environment',
           'Intended Audience :: Developers',

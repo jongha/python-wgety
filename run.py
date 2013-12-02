@@ -1,4 +1,4 @@
-from wget.wget import Wget
+from wgety.wgety import Wgety
 
-w = Wget()
+w = Wgety()
 w.execute(url='http://www.python.org', filename='python.html');
