@@ -120,7 +120,7 @@ class Wget(object):
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         wget = Wget()
-        wget.execute(url=sys.argv[1]);
+        wget.execute(url=sys.argv[1], filename=sys.argv[2]);
     else:
-        print('Useage: wget.py url')
+        print('Useage: wget.py url filename')
 
