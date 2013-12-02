@@ -9,10 +9,10 @@ wget is a Python library for save as internet web page.
 
 Copy wget.py anywhere you want and create new file include below codes.
 
-     import src.wget
+     from wget.wget import Wget
 
-     g = src.wget.Wget()
-     g.execute(url='http://www.python.org', filename='python.html');
+     w = Wget()
+     w.execute(url='http://www.python.org', filename='python.html');
 
 ### From the command line
 

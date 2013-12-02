@@ -1,4 +1,4 @@
-import src.wget
+from wget.wget import Wget
 
-g = src.wget.Wget()
-g.execute(url='http://www.python.org', filename='python.html');
+w = Wget()
+w.execute(url='http://www.python.org', filename='python.html');
