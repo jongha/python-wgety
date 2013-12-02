@@ -22,11 +22,11 @@ regex_map = {
 
 except_startswith_links = ['#', 'http', 'mailto', 'javascript' ]
 
-class Webget(object):
+class Wget(object):
     def __init__(self):
         return
      
-    def _webget(self, url, filename):
+    def _wget(self, url, filename):
         http = HTTPConnection(urlparse(url).netloc)
         http.request('GET', url, headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36' })
 
@@ -109,14 +109,18 @@ class Webget(object):
             filename = 'output.html'
         
         temp_filename = '.' + filename
-        if not url.startswith('http'): url = 'http://' + url
-        self._webget(url, temp_filename)
+        if not url.startswith('http'): url = 'http://' + url # if http, https not included
+        
+        print('getting... ' + url)
+        self._wget(url, temp_filename)
+        
+        print('compiling... ' + filename)
         self._compile(url, temp_filename, filename, absolute_link=absolute_link)
         
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        webget = Webget()
-        webget.execute(url=sys.argv[1]);
+        wget = Wget()
+        wget.execute(url=sys.argv[1]);
     else:
-        print('Useage: webget.py url')
+        print('Useage: wget.py url')
 
