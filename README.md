@@ -1,11 +1,19 @@
 # wget for Python
 [![Build Status](https://travis-ci.org/jongha/python-wgety.png?branch=master)](https://travis-ci.org/jongha/python-wgety)
 
-wget is a Python library for save as internet web page.
+wgety is a Python library for save files or web pages.
 
 ## Usage
 
-### As a library
+### Setup
+
+    # python ./setup.py install
+
+### Test
+
+    # python ./run.py
+    
+### Using as a library
 
 Copy wgety.py anywhere you want and create new file include below codes.
 
