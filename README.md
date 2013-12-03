@@ -7,11 +7,11 @@ wgety is a Python library for save files or web pages.
 
 ### Setup
 
-    # python ./setup.py install
+    $ python ./setup.py install
 
 ### Test
 
-    # python ./run.py
+    $ python ./run.py
     
 ### Using as a library
 
