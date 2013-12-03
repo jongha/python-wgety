@@ -10,7 +10,7 @@ import time
 try: # python 3
     from urllib.parse import urlparse
     from http.client import HTTPConnection
-    
+
 except ImportError:
     from httplib import HTTPConnection
     from urlparse import urlparse
@@ -33,31 +33,31 @@ class FileProgress(object):
     def __init__(self, total):
         self.total = float(total)
         return
-    
+
     def open(self, filename, mode):
         return open(filename, mode)
-    
+
     def write(self, fo, contents):
         fo.write(contents)
-        
+
         sys.stdout.write('\r%d%%' % int(float(fo.tell())/self.total*100))
         sys.stdout.flush()
 
 class Wgety(object):
     BUFFER_SIZE = 512
-    
+
     def __init__(self):
         return
 
     def _wgety(self, url, filename):
-        
+
         http = HTTPConnection(urlparse(url).netloc)
         http.request('GET', url, headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36' })
 
         response = http.getresponse()
         fp = FileProgress(response.getheader('Content-Length'))
         f = fp.open(filename, 'wb')
-        
+
         data = response.read(self.BUFFER_SIZE)
         while data:
             try:
@@ -65,7 +65,7 @@ class Wgety(object):
                 data = response.read(self.BUFFER_SIZE)
             except:
                 break
-        
+
         sys.stdout.write('\r')
         f.close();
 
@@ -120,28 +120,28 @@ class Wgety(object):
     def _compile(self, url, src_filename, dst_filename, absolute_link=True):
         if os.path.exists(dst_filename):
             os.remove(dst_filename)
-            
+
         if absolute_link:
             src = codecs.open(src_filename, 'rb', 'utf-8')
             dst = codecs.open(dst_filename, 'wb', 'utf-8')
-            
+
             l = src.readline()
             while l:
                 l = self._get_absolute_link(url, l.strip());
-                if len(l): dst.write(l + '\n')               
-                l = src.readline()            
-                
+                if len(l): dst.write(l + '\n')
+                l = src.readline()
+
             src.close()
             dst.close()
             os.remove(src_filename)
-            
+
         else:
             os.rename(src_filename, dst_filename)
-        
+
         return
 
     def execute(self, url, filename=None, absolute_link=None):
-        
+
         if filename is None:
             filename = url.split('/')[-1]
 
@@ -151,16 +151,16 @@ class Wgety(object):
         print('Getting... ' + url)
         self._wgety(url, temp_filename)
 
-        
+
         if absolute_link is None: # get absolute_link option
             if os.path.splitext(filename)[1].lower() in ('.html', '.htm'):
                 absolute_link = True
             else:
                 absolute_link = False
-        
-        print('Compiling... ' + filename)        
+
+        print('Compiling... ' + filename)
         self._compile(url, temp_filename, filename, absolute_link=absolute_link)
-        
+
         print('Done.')
 
 if __name__ == '__main__':

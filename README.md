@@ -12,7 +12,8 @@ Copy wgety.py anywhere you want and create new file include below codes.
     from wgety.wgety import Wgety
 
     w = Wgety()
-    w.execute(url='http://www.python.org', filename='python.html');
+    w.execute(url='http://www.python.org', filename='python.html', absolute_link=True);
+    w.execute(url='http://www.python.org/images/python-logo.gif');
 
 ### From the command line
 
