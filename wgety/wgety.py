@@ -6,9 +6,15 @@ import codecs
 import os
 import re
 import time
-from httplib import HTTPConnection
-from urlparse import urlparse
-#from http.client import HTTPConnection # for 3.3
+
+try: # python 3
+    from urllib.parse import urlparse
+    from http.client import HTTPConnection
+    
+except ImportError:
+    from httplib import HTTPConnection
+    from urlparse import urlparse
+
 
 regex_map = {
     'ROOT': [' (src|href)=(["\'])(/[^"\']*)', '^(src|href)=(["\'])(/[^"\']*)'],
