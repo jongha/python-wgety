@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='wgety',
-      version='1.1',
+      version='1.2.1',
       description='wgety for Python',
       long_description='wgety for Python',
       license='MIT',
