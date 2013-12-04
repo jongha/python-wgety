@@ -190,5 +190,5 @@ if __name__ == '__main__':
         wgety = Wgety()
         wgety.execute(url=sys.argv[1], filename=args.filename, absolute_link=args.absolute);
     else:
-        print args.accumulate(args.integers)
+        print(args.accumulate(args.integers))
 
