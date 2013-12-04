@@ -12,7 +12,7 @@ wgety is a Python library for non-interactive download of files from the Web. It
 ### Test
 
     $ python ./run.py
-    
+
 ### Using as a library
 
 Copy wgety.py anywhere you want and create new file include below codes. If you need RELATIVE link to ABSOLUTE link conversion, set True absolute_link option.
@@ -29,11 +29,11 @@ Copy wgety.py anywhere you want and create new file include below codes. If you 
     usage: wgety.py [-h] [-a] url [filename]
 
     $ wgety.py http://www.python.org
-    
+
     or with full options.
-    
+
     $ wgety.py -a http://www.python.org python.html
-    
+
 ## License
 
 python-wgety is available under the terms of the MIT License.

@@ -10,19 +10,19 @@ import time
 try: # python 3
     from urllib.parse import urlparse
     from http.client import HTTPConnection
-    
+
 except ImportError:
     from httplib import HTTPConnection
     from urlparse import urlparse
-    
-try: 
+
+try:
     import argparse
 except ImportError:
     from optparse import OptionParser
-    
+
 regex_map = {
     'ROOT': [
-        ' (src|href)=(["\'])(/[^"\']*)', 
+        ' (src|href)=(["\'])(/[^"\']*)',
         '^(src|href)=(["\'])(/[^"\']*)'
         ],
     'PARENT': [
@@ -52,10 +52,10 @@ class FileProgress(object):
 
         if self.total > 0: # download percent
             sys.stdout.write('\r%d%%' % int(float(fo.tell())/self.total*100))
-            
+
         else: # has not content-length, show bytes downloaded
             sys.stdout.write('\r%d bytes' % int(float(fo.tell())))
-            
+
         sys.stdout.flush()
 
 class Wgety(object):
@@ -185,7 +185,7 @@ if __name__ == '__main__':
     parser.add_argument('filename', metavar='filename', nargs='?', default=None, help='This option will save to the local filename.')
     parser.add_argument('-a', '--absolute', action='store_true', help='Change to absolute link.')
     args = parser.parse_args()
-    
+
     if l_argv > 1:
         wgety = Wgety()
         wgety.execute(url=sys.argv[1], filename=args.filename, absolute_link=args.absolute);
