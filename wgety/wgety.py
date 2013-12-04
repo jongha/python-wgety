@@ -1,4 +1,4 @@
-#!/usr/bin/python
+﻿#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 import sys
@@ -10,18 +10,28 @@ import time
 try: # python 3
     from urllib.parse import urlparse
     from http.client import HTTPConnection
-
+    
 except ImportError:
     from httplib import HTTPConnection
     from urlparse import urlparse
-
-
+    
+try: 
+    import argparse
+except ImportError:
+    from optparse import OptionParser
+    
 regex_map = {
-    'ROOT': [' (src|href)=(["\'])(/[^"\']*)', '^(src|href)=(["\'])(/[^"\']*)'],
-    'PARENT': [' (src|href)=(["\'])\.\.([^"\']*)', '^(src|href)=(["\'])\.\.([^"\']*)'],
+    'ROOT': [
+        ' (src|href)=(["\'])(/[^"\']*)', 
+        '^(src|href)=(["\'])(/[^"\']*)'
+        ],
+    'PARENT': [
+        ' (src|href)=(["\'])\.\./([^"\']*)',
+        '^(src|href)=(["\'])\.\./([^"\']*)'
+        ],
     'CURRENT': [
-        ' (src|href)=(["\'])\.([^"\']*)',
-        '^(src|href)=(["\'])\.([^"\']*)',
+        ' (src|href)=(["\'])\./([^"\']*)',
+        '^(src|href)=(["\'])\./([^"\']*)'
         ' (src|href)=(["\'])([^"\']*)',
         '^(src|href)=(["\'])([^"\']*)'
         ]
@@ -31,7 +41,7 @@ except_startswith_links = ['#', 'http', 'mailto', 'javascript' ]
 
 class FileProgress(object):
     def __init__(self, total):
-        self.total = float(total)
+        self.total = total is not None and float(total) or 0 # has not content-length
         return
 
     def open(self, filename, mode):
@@ -40,7 +50,12 @@ class FileProgress(object):
     def write(self, fo, contents):
         fo.write(contents)
 
-        sys.stdout.write('\r%d%%' % int(float(fo.tell())/self.total*100))
+        if self.total > 0: # download percent
+            sys.stdout.write('\r%d%%' % int(float(fo.tell())/self.total*100))
+            
+        else: # has not content-length, show bytes downloaded
+            sys.stdout.write('\r%d bytes' % int(float(fo.tell())))
+            
         sys.stdout.flush()
 
 class Wgety(object):
@@ -164,9 +179,16 @@ class Wgety(object):
         print('Done.')
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
+    l_argv = len(sys.argv)
+    parser = argparse.ArgumentParser(description='wgety for Python')
+    parser.add_argument('url', metavar='url', nargs=1, help='Download target url')
+    parser.add_argument('filename', metavar='filename', nargs='?', default=None, help='This option will save to the local filename.')
+    parser.add_argument('-a', '--absolute', action='store_true', help='Change to absolute link.')
+    args = parser.parse_args()
+    
+    if l_argv > 1:
         wgety = Wgety()
-        wgety.execute(url=sys.argv[1], filename=sys.argv[2]);
+        wgety.execute(url=sys.argv[1], filename=args.filename, absolute_link=args.absolute);
     else:
-        print('Useage: wgety.py url filename')
+        print args.accumulate(args.integers)
 
